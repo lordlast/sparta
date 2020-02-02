@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+	<style type="text/css">
+		*{
+			font-family: 'Open Sans', sans-serif;
+		}
+		.wrap {
+			border: solid;
+			width: 900px;
+			margin: auto;
+		}
+		.wrap2{
+			width:800px;
+			margin: auto;
+		}
+		.apple > img{
+			width: 400px;
+			padding: 20px;
+			margin: auto;
+		}
+		.pricefont{
+			font-size: 18px;
+		}
+		.sumit{
+			text-align:center;
+			padding: 10px;
+		}
+	</style>
+	<script>
+		function jumun(){
+			var j1 = $('#juname').val();
+			var j2 = $('#jusu').val();
+			var j3 = $('#juaddres').val();
+			var j4 = $('#junumber').val();
+
+			if (j1 == '') {
+				alert('이름을 입력하세요')
+				$('#juname').focus()
+				return;
+			}
+			else if (j2 == '') {
+				alert('수량을 입력하세요')
+				$('#jusu').focus()
+				return;
+			}
+			else if (j3 == '') {
+				alert('주소를 입력하세요')
+				$('#juaddres').focus()
+				return;
+			}
+			else if (j4 == '') {
+				alert('전화번호를 입력하세요')
+				$('#junumber').focus()
+				return;
+			} 
+		}
+	
+	 function make_card(name,count,address,phone) {
+        let temp_html = '<tr>\
+            <td>'+name+'</td>\
+            <td>'+count+'</td>\
+            <td>'+address+'</td>\
+            <td>'+phone+'</td>\
+          </tr>';
+        $('#orders-box').append(temp_html);
+      }
+
+
+	</script>
+
+
+</head>
+<body>
+	<div class= "wrap">
+		<div class="wrap2">
+			<div class="apple">
+				<img src="apple.jpg"/>
+				<h1>사과를 팝니다. <span class="pricefont">가격 : 2000 원 </span></h1>
+				<p>이 사과는 청도에 사과 입니다. </p>
+			</div>
+			<div>
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon1">주문자 이름</span>
+					</div>
+					<input type="text" class="form-control" placeholder="주문자 이름" aria-label="name" aria-describedby="basic-addon1" id='juname'>
+				</div>
+				<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<span class="input-group-text">수량</span>
+				</div>
+				<select class="custom-select" id="jusu">
+					<option selected>----수량을 선택하세요----</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+				</select>
+			</div>
+
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon1">주소</span>
+					</div>
+					<input type="text" class="form-control" placeholder="주소를 입력해주세요" aria-label="Username" aria-describedby="basic-addon1" id='juaddres'>
+				</div>
+
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon1">전화번호</span>
+					</div>
+
+					<input type="text" id='junumber' class="form-control" />
+					<!-- <input type="text" class="form-control" placeholder="전화번호를 입력해주세요" aria-label="Username" aria-describedby="basic-addon1" id='junumber'/> -->
+				</p>
+			</div>
+			<div class="sumit">
+				<a class="btn btn-primary btn-lg" role="button" onclick="jumun()">주문하기</a>
+			</div>
+			<div class="orders">
+        <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">이름</th>
+            <th scope="col">수량</th>
+            <th scope="col">주소</th>
+            <th scope="col">전화번호</th>
+          </tr>
+        </thead>
+        <tbody id="orders-box">
+          <tr>
+            <td>Otto</td>
+            <td>@mdo</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>
+          
+        </tbody>
+      </table>
+      </div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
