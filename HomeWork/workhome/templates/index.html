@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/index.css') }}">
+
+	<script>
+		function order(){
+
+			var name = $('#juname').val();
+			var count = $('#jusu').val();
+			var adders = $('#juaddres').val();
+			var phone = $('#junumber').val();
+
+			if (name == '') {
+				alert('이름을 입력하세요')
+				$('#juname').focus()
+				return;
+			}
+			else if (count == '') {
+				alert('수량을 입력하세요')
+				$('#jusu').focus()
+				return;
+			}
+			else if (adders == '') {
+				alert('주소를 입력하세요')
+				$('#juaddres').focus()
+				return;
+			}
+			else if (phone == '') {
+				alert('전화번호를 입력하세요')
+				$('#junumber').focus()
+				return;
+			}
+
+			$.ajax({
+				  type: "POST",
+				  url: "/order",
+				  data: {juname: name, jusu: count, juaddres: adders, junumber: phone},
+				  success: function(response){
+				   if (response['result'] == 'success') {
+					 alert ('포스팅 성공!')
+					window.location.reload();
+					}else {
+					 alert ('서버오류')
+					}
+
+           			 console.log(response)
+
+        	 	 	}
+     		 })
+
+
+		}
+
+	$(document).ready(function(){
+      $('#orders-box').html('');
+      listing();
+    });
+
+	function listing() {
+      $.ajax({
+        type: "GET",
+        url: "/post",
+        data: {},
+        success: function(response){
+           let shops = response['shop'];
+           for (let i = 0; i < shops.length; i++) {
+             make_card(shops[i]['name'],shops[i]['count'],shops[i]['adders'],shops[i]['phone'])
+           }
+        }
+      })
+    }
+
+	 function make_card(name,count,adders,phone) {
+        let temp_html = '<tr>\
+            <td>'+name+'</td>\
+            <td>'+count+'</td>\
+            <td>'+adders+'</td>\
+            <td>'+phone+'</td>\
+         </tr>';
+        $('#orders-box').append(temp_html);
+      }
+
+
+	</script>
+
+
+</head>
+<body>
+	<div class= "wrap">
+		<div class="wrap2">
+			<div class="apple">
+				<img src="https://t1.daumcdn.net/cfile/tistory/2309BB3654B8817909"/>
+				<h1>사과를 팝니다. <span class="pricefont">가격 : 2000 원 </span></h1>
+				<p>이 사과는 청도에 사과 입니다. </p>
+			</div>
+			<div>
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon3">주문자 이름</span>
+					</div>
+					<input type="text" class="form-control" placeholder="주문자 이름" aria-label="name" aria-describedby="basic-addon3" id='juname'>
+				</div>
+				<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<label class="input-group-text" for="inputGroupSelect01">수량</label>
+				</div>
+				<select class="custom-select" id="jusu">
+					<option selected value>----수량을 선택하세요----</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+				</select>
+			</div>
+
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon1">주소</span>
+					</div>
+					<input type="text" class="form-control" placeholder="주소를 입력해주세요" aria-label="Username" aria-describedby="basic-addon1" id='juaddres'>
+				</div>
+
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon1">전화번호</span>
+					</div>
+
+					<input type="text" id='junumber' class="form-control" />
+					<!-- <input type="text" class="form-control" placeholder="전화번호를 입력해주세요" aria-label="Username" aria-describedby="basic-addon1" id='junumber'/> -->
+				</p>
+			</div>
+			<div class="order">
+				<a class="btn btn-primary btn-lg" role="button" onclick="order()">주문하기</a>
+			</div>
+			<div class="orders">
+        <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">이름</th>
+            <th scope="col">수량</th>
+            <th scope="col">주소</th>
+            <th scope="col">전화번호</th>
+          </tr>
+        </thead>
+        <tbody id="orders-box">
+          <tr>
+            <td>Otto</td>
+            <td>@mdo</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>
+
+        </tbody>
+      </table>
+      </div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
