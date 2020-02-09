@@ -19,7 +19,7 @@ genies = soup.select('#wrap-main > #wrap-body > #body-content > .newest-list > '
                      '.music-list-wrap > .list-wrap > tbody > tr')
 
 #print(genies)
-# movies (tr들) 의 반복문을 돌리기
+#(tr들) 의 반복문을 돌리기
 rank = 1
 for genie in genies:
     # movie 안에 a 가 있으면,
